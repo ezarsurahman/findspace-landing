@@ -123,13 +123,15 @@ export default function Home() {
             </p>
 
             <div className="mt-6 flex items-center gap-3 lg:mt-8">
-              <Link
-                href="/auth"
+              <a
+                href="https://www.figma.com/proto/yETlZAcknojF7J6bZni8nz/PPD-TK-2?node-id=56-133&t=nS9PZAj7cY5A5rPg-1&scaling=scale-down&content-scaling=fixed&page-id=8:3&starting-point-node-id=56:133&show-proto-sidebar=1"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`inline-flex items-center justify-center gap-2 rounded-2xl bg-[#c19b65] px-6 py-3.5 text-sm font-semibold text-[#fffaf4] transition hover:scale-[1.02] active:scale-[0.98] ${SHADOW_CARD}`}
               >
                 Find Your Workspace
                 <ChevronRight className="size-4" />
-              </Link>
+              </a>
               <button
                 type="button"
                 onClick={() => scrollTo(2)}
@@ -282,7 +284,7 @@ export default function Home() {
 
           <div className="mt-8 flex justify-center">
             <Link
-              href="/auth"
+              href="https://www.figma.com/proto/yETlZAcknojF7J6bZni8nz/PPD-TK-2?node-id=56-133&t=nS9PZAj7cY5A5rPg-1&scaling=scale-down&content-scaling=fixed&page-id=8:3&starting-point-node-id=56:133&show-proto-sidebar=1"
               className={`inline-flex items-center justify-center gap-2 rounded-2xl bg-[#c19b65] px-8 py-4 text-base font-semibold text-[#fffaf4] transition hover:scale-[1.02] active:scale-[0.98] ${SHADOW_CARD}`}
             >
               Find Your Workspace
@@ -309,7 +311,7 @@ export default function Home() {
 
       <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-[#e8ded1] bg-[#f4f0ddf2] p-4 backdrop-blur-xl lg:hidden">
         <Link
-          href="/auth"
+          href="https://www.figma.com/proto/yETlZAcknojF7J6bZni8nz/PPD-TK-2?node-id=56-133&t=nS9PZAj7cY5A5rPg-1&scaling=scale-down&content-scaling=fixed&page-id=8:3&starting-point-node-id=56:133&show-proto-sidebar=1"
           className={`flex w-full items-center justify-center gap-2 rounded-2xl bg-[#c19b65] py-3.5 text-sm font-semibold text-[#fffaf4] transition hover:bg-[#c19b65e6] active:scale-[0.98] ${SHADOW_CARD}`}
         >
           Find Your Workspace
