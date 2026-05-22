@@ -30,14 +30,14 @@ const SHADOW_CARD =
 
 const CROWD_STYLES = {
   Quiet: "bg-[#2f8f5b1a] text-[#2f8f5b] border-[#2f8f5b33]",
-  Moderate: "bg-[#cf7f2f1a] text-[#cf7f2f] border-[#cf7f2f40]",
-  Busy: "bg-[#c2423426] text-[#c24234] border-[#c242344d]",
+  Moderate: "bg-[#c19b651a] text-[#c19b65] border-[#c19b6540]",
+  Busy: "bg-[#f14e4c26] text-[#f14e4c] border-[#f14e4c4d]",
 };
 
 const CROWD_DOT_STYLES = {
   Quiet: "bg-[#2f8f5b]",
-  Moderate: "bg-[#cf7f2f]",
-  Busy: "bg-[#c24234]",
+  Moderate: "bg-[#c19b65]",
+  Busy: "bg-[#f14e4c]",
 };
 
 export default function Home() {
@@ -70,15 +70,15 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-dvh bg-[#fbf7f1] text-[#1d1712]">
+    <div className="relative min-h-dvh bg-[#f4f0dd] text-[#1d1712]">
       <nav
-        className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-[#fbf7f1cc] backdrop-blur-xl " + SHADOW_SOFT : "bg-transparent"
+        className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 pb-20 ${
+          scrolled ? "bg-[#f4f0ddcc] backdrop-blur-xl " + SHADOW_SOFT : "bg-transparent"
         }`}
       >
         <div className="mx-auto flex max-w-98.25 items-center justify-between px-5 py-4">
           <div className="flex items-center gap-2">
-            <div className="flex size-8 items-center justify-center rounded-lg bg-[#cf7f2f] text-[#fffaf4]">
+            <div className="flex size-8 items-center justify-center rounded-full bg-[#c19b65] text-[#fffaf4]">
               <Search className="size-4" />
             </div>
             <span className="text-base font-bold text-[#5e3822]">FindSpace</span>
@@ -86,7 +86,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => scrollTo(4)}
-            className="rounded-full bg-[#cf7f2f] px-4 py-1.5 text-xs font-semibold text-[#fffaf4] transition hover:bg-[#cf7f2fe6]"
+            className="rounded-full bg-[#c19b65] px-4 py-1.5 text-xs font-semibold text-[#fffaf4] transition hover:bg-[#c19b65e6]"
           >
             Get Started
           </button>
@@ -99,17 +99,17 @@ export default function Home() {
         }}
         className="relative overflow-hidden px-5 pb-10 pt-28"
       >
-        <div className="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full bg-[#cf7f2f1a] blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full bg-[#c19b651a] blur-3xl" />
         <div className="pointer-events-none absolute -left-20 top-40 size-64 rounded-full bg-[#d8f0ff4d] blur-3xl" />
 
         <div className="relative mx-auto max-w-98.25">
-          <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-[#cf7f2f33] bg-[#cf7f2f1a] px-3 py-1 text-[11px] font-semibold text-[#cf7f2f]">
-            <Star className="size-3 fill-[#cf7f2f] text-[#cf7f2f]" />
+          <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-[#c19b6533] bg-[#c19b651a] px-3 py-1 text-[11px] font-semibold text-[#c19b65]">
+            <Star className="size-3 fill-[#c19b65] text-[#c19b65]" />
             Now available in Jabodetabek
           </span>
 
           <h1 className="mt-3 text-[2.1rem] font-bold leading-[1.15] tracking-tight text-[#5e3822]">
-            Stop guessing cafés. <span className="text-[#cf7f2f]">FindSpace</span> knows where to work.
+            Stop guessing cafés. <span className="text-[#c19b65]">FindSpace</span> knows where to work.
           </h1>
 
           <p className="mt-4 text-[15px] leading-relaxed text-[#7d7368]">
@@ -119,7 +119,7 @@ export default function Home() {
           <div className="mt-6 flex items-center gap-3">
             <Link
               href="/auth"
-              className={`inline-flex items-center justify-center gap-2 rounded-2xl bg-[#cf7f2f] px-6 py-3.5 text-sm font-semibold text-[#fffaf4] transition hover:scale-[1.02] active:scale-[0.98] ${SHADOW_CARD}`}
+              className={`inline-flex items-center justify-center gap-2 rounded-2xl bg-[#c19b65] px-6 py-3.5 text-sm font-semibold text-[#fffaf4] transition hover:scale-[1.02] active:scale-[0.98] ${SHADOW_CARD}`}
             >
               Find Your Workspace
               <ChevronRight className="size-4" />
@@ -147,15 +147,15 @@ export default function Home() {
       >
         <div className="mx-auto max-w-98.25">
           <h2 className="text-2xl font-bold leading-snug text-[#5e3822]">
-            Finding the right café <span className="text-[#cf7f2f]">shouldn&apos;t</span> be trial and error.
+            Finding the right café <span className="text-[#c19b65]">shouldn&apos;t</span> be trial and error.
           </h2>
 
           <div className="mt-8 grid grid-cols-2 gap-3">
-            <PainCard icon={<Users className="size-5 text-[#c24234]" />} title="Too crowded" text="Arrive and find every seat taken." />
-            <PainCard icon={<Wifi className="size-5 text-[#c24234]" />} title="WiFi dies" text="Unreliable connection mid-meeting." />
-            <PainCard icon={<Zap className="size-5 text-[#c24234]" />} title="No outlets" text="Laptop battery running on fumes." />
-            <PainCard icon={<VolumeX className="size-5 text-[#c24234]" />} title="Too noisy" text="Can’t focus with loud chatter." />
-            <PainCard icon={<Repeat className="size-5 text-[#c24234]" />} title="Café hopping" text="Wasting time moving around." className="col-span-2" />
+            <PainCard icon={<Users className="size-5 text-[#f14e4c]" />} title="Too crowded" text="Arrive and find every seat taken." />
+            <PainCard icon={<Wifi className="size-5 text-[#f14e4c]" />} title="WiFi dies" text="Unreliable connection mid-meeting." />
+            <PainCard icon={<Zap className="size-5 text-[#f14e4c]" />} title="No outlets" text="Laptop battery running on fumes." />
+            <PainCard icon={<VolumeX className="size-5 text-[#f14e4c]" />} title="Too noisy" text="Can’t focus with loud chatter." />
+            <PainCard icon={<Repeat className="size-5 text-[#f14e4c]" />} title="Café hopping" text="Wasting time moving around." className="col-span-2" />
           </div>
         </div>
       </section>
@@ -167,15 +167,15 @@ export default function Home() {
         className="px-5 py-14"
       >
         <div className="mx-auto max-w-98.25">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#cf7f2f]">Features</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#c19b65]">Features</span>
           <h2 className="mt-2 text-2xl font-bold text-[#5e3822]">Everything you need to stay productive</h2>
 
           <div className="mt-8 space-y-3">
-            <FeatureRow icon={<Users className="size-5 text-[#cf7f2f]" />} title="Real-Time Crowd Level" desc="See how crowded a café is before you even leave home." />
-            <FeatureRow icon={<Search className="size-5 text-[#cf7f2f]" />} title="Smart Café Discovery" desc="Find cafés based on your location and workspace needs." />
-            <FeatureRow icon={<CheckCircle2 className="size-5 text-[#cf7f2f]" />} title="Productivity Labels" desc="Quiet zones, stable WiFi, plenty of sockets, comfy seats." />
-            <FeatureRow icon={<Bookmark className="size-5 text-[#cf7f2f]" />} title="Saved Collection" desc="Bookmark favorites and build your personal workspace list." />
-            <FeatureRow icon={<Bell className="size-5 text-[#cf7f2f]" />} title="Live Notifications" desc="Get alerted when your saved cafés become available." />
+            <FeatureRow icon={<Users className="size-5 text-[#c19b65]" />} title="Real-Time Crowd Level" desc="See how crowded a café is before you even leave home." />
+            <FeatureRow icon={<Search className="size-5 text-[#c19b65]" />} title="Smart Café Discovery" desc="Find cafés based on your location and workspace needs." />
+            <FeatureRow icon={<CheckCircle2 className="size-5 text-[#c19b65]" />} title="Productivity Labels" desc="Quiet zones, stable WiFi, plenty of sockets, comfy seats." />
+            <FeatureRow icon={<Bookmark className="size-5 text-[#c19b65]" />} title="Saved Collection" desc="Bookmark favorites and build your personal workspace list." />
+            <FeatureRow icon={<Bell className="size-5 text-[#c19b65]" />} title="Live Notifications" desc="Get alerted when your saved cafés become available." />
           </div>
         </div>
       </section>
@@ -186,16 +186,16 @@ export default function Home() {
         }}
         className="relative overflow-hidden px-5 py-14"
       >
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-[#cf7f2f0d] to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-[#c19b650d] to-transparent" />
         <div className="relative mx-auto max-w-98.25">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#cf7f2f]">Validation</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#c19b65]">Validation</span>
           <h2 className="mt-2 text-2xl font-bold text-[#5e3822]">Built for the growing work-from-café culture</h2>
 
           <div className="mt-6 grid grid-cols-2 gap-3">
-            <StatCard icon={<Users className="size-5 text-[#cf7f2f]" />} value="11.5M" label="Potential users in Jabodetabek" />
-            <StatCard icon={<TrendingUp className="size-5 text-[#cf7f2f]" />} value="30-40%" label="Hybrid work adoption rate" />
-            <StatCard icon={<GraduationCap className="size-5 text-[#cf7f2f]" />} value="Students" label="Primary user segment" />
-            <StatCard icon={<Briefcase className="size-5 text-[#cf7f2f]" />} value="Remote" label="Worker-friendly ecosystem" />
+            <StatCard icon={<Users className="size-5 text-[#c19b65]" />} value="11.5M" label="Potential users in Jabodetabek" />
+            <StatCard icon={<TrendingUp className="size-5 text-[#c19b65]" />} value="30-40%" label="Hybrid work adoption rate" />
+            <StatCard icon={<GraduationCap className="size-5 text-[#c19b65]" />} value="Students" label="Primary user segment" />
+            <StatCard icon={<Briefcase className="size-5 text-[#c19b65]" />} value="Remote" label="Worker-friendly ecosystem" />
           </div>
 
           <div className={`mt-6 space-y-3 rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-5 ${SHADOW_SOFT}`}>
@@ -220,8 +220,8 @@ export default function Home() {
         }}
         className="relative overflow-hidden px-5 py-16"
       >
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#cf7f2f1a] via-[#fbf7f1] to-[#fbf7f1]" />
-        <div className="pointer-events-none absolute left-1/2 -top-20 size-80 -translate-x-1/2 rounded-full bg-[#cf7f2f1a] blur-3xl" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#c19b651a] via-[#f4f0dd] to-[#f4f0dd]" />
+        <div className="pointer-events-none absolute left-1/2 -top-20 size-80 -translate-x-1/2 rounded-full bg-[#c19b651a] blur-3xl" />
 
         <div className="relative mx-auto max-w-98.25 text-center">
           <h2 className="text-[1.75rem] font-bold leading-snug text-[#5e3822]">Your next productive workspace starts here.</h2>
@@ -232,7 +232,7 @@ export default function Home() {
           <div className="mt-8 flex justify-center">
             <Link
               href="/auth"
-              className={`inline-flex items-center justify-center gap-2 rounded-2xl bg-[#cf7f2f] px-8 py-4 text-base font-semibold text-[#fffaf4] transition hover:scale-[1.02] active:scale-[0.98] ${SHADOW_CARD}`}
+              className={`inline-flex items-center justify-center gap-2 rounded-2xl bg-[#c19b65] px-8 py-4 text-base font-semibold text-[#fffaf4] transition hover:scale-[1.02] active:scale-[0.98] ${SHADOW_CARD}`}
             >
               Find Your Workspace
               <ChevronRight className="size-5" />
@@ -243,10 +243,10 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="border-t border-[#e8ded1] px-5 py-8">
+      <footer className="border-t border-[#e8ded1] px-5 py-8 pb-24">
         <div className="mx-auto max-w-98.25 text-center">
           <div className="flex items-center justify-center gap-2">
-            <div className="flex size-7 items-center justify-center rounded-md bg-[#cf7f2f] text-[#fffaf4]">
+            <div className="flex size-7 items-center justify-center rounded-md bg-[#c19b65] text-[#fffaf4]">
               <Search className="size-3.5" />
             </div>
             <span className="text-sm font-bold text-[#5e3822]">FindSpace</span>
@@ -256,10 +256,10 @@ export default function Home() {
         </div>
       </footer>
 
-      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-[#e8ded1] bg-[#fbf7f1f2] p-4 backdrop-blur-xl sm:left-1/2 sm:max-w-98.25 sm:-translate-x-1/2">
+      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-[#e8ded1] bg-[#f4f0ddf2] p-4 backdrop-blur-xl sm:left-1/2 sm:max-w-98.25 sm:-translate-x-1/2">
         <Link
           href="/auth"
-          className={`flex w-full items-center justify-center gap-2 rounded-2xl bg-[#cf7f2f] py-3.5 text-sm font-semibold text-[#fffaf4] transition hover:bg-[#cf7f2fe6] active:scale-[0.98] ${SHADOW_CARD}`}
+          className={`flex w-full items-center justify-center gap-2 rounded-2xl bg-[#c19b65] py-3.5 text-sm font-semibold text-[#fffaf4] transition hover:bg-[#c19b65e6] active:scale-[0.98] ${SHADOW_CARD}`}
         >
           Find Your Workspace
           <ChevronRight className="size-4" />
@@ -273,7 +273,7 @@ export default function Home() {
             type="button"
             onClick={() => scrollTo(i)}
             className={`size-2 rounded-full transition-all ${
-              activeSection === i ? "scale-125 bg-[#cf7f2f]" : "bg-[#e8ded1] hover:bg-[#7d7368]"
+              activeSection === i ? "scale-125 bg-[#c19b65]" : "bg-[#e8ded1] hover:bg-[#7d7368]"
             }`}
             aria-label={`Go to section ${i + 1}`}
           />
@@ -288,16 +288,16 @@ function PhoneMockup() {
 
   return (
     <div className="relative w-65 shrink-0">
-      <div className={`relative overflow-hidden rounded-4xl border-[6px] border-[#5e3822cc] bg-[#fbf7f1] shadow-2xl`}>
-        <div className="absolute left-1/2 top-0 z-10 h-5 w-24 -translate-x-1/2 rounded-b-2xl bg-[#5e3822cc]" />
+      <div className={`relative overflow-hidden rounded-4xl border-[6px] border-[#604d3f] bg-[#f4f0dd] shadow-2xl`}>
+        <div className="absolute left-1/2 top-0 z-10 h-5 w-24 -translate-x-1/2 rounded-b-2xl bg-[#604d3f]" />
 
         <div className="px-3 pb-3 pt-7">
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-1.5">
-              <MapPin className="size-3.5 text-[#cf7f2f]" />
+              <MapPin className="size-3.5 text-[#c19b65]" />
               <span className="text-[10px] font-semibold text-[#5e3822]">Menteng, Jakpus</span>
             </div>
-            <span className="rounded-full bg-[#cf7f2f1a] px-2 py-0.5 text-[9px] font-semibold text-[#cf7f2f]">Open</span>
+            <span className="rounded-full bg-[#c19b651a] px-2 py-0.5 text-[9px] font-semibold text-[#c19b65]">Open</span>
           </div>
 
           <div className="mb-3 flex items-center gap-2 rounded-xl border border-[#e8ded1] bg-[#f3ebe1] px-3 py-2">
@@ -319,7 +319,7 @@ function PhoneMockup() {
                 <div className="space-y-1 p-2.5">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-semibold text-[#1d1712]">{cafe.name}</span>
-                    <CheckCircle2 className="size-3 text-[#cf7f2f]" />
+                    <CheckCircle2 className="size-3 text-[#c19b65]" />
                   </div>
                   <div className="flex items-center gap-2 text-[9px] text-[#7d7368]">
                     <span className="inline-flex items-center gap-0.5">
@@ -359,7 +359,7 @@ function PainCard({ icon, title, text, className = "" }) {
 function FeatureRow({ icon, title, desc }) {
   return (
     <div className={`flex items-start gap-4 rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-4 transition hover:${SHADOW_CARD} ${SHADOW_SOFT}`}>
-      <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[#cf7f2f1a]">{icon}</div>
+      <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#c19b651a]">{icon}</div>
       <div>
         <h3 className="text-sm font-semibold text-[#1d1712]">{title}</h3>
         <p className="mt-0.5 text-[12px] leading-relaxed text-[#7d7368]">{desc}</p>
@@ -371,7 +371,7 @@ function FeatureRow({ icon, title, desc }) {
 function StatCard({ icon, value, label }) {
   return (
     <div className={`rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-4 text-center transition hover:${SHADOW_CARD} ${SHADOW_SOFT}`}>
-      <div className="mx-auto mb-2 flex size-9 items-center justify-center rounded-lg bg-[#cf7f2f1a]">{icon}</div>
+      <div className="mx-auto mb-2 flex size-9 items-center justify-center rounded-lg bg-[#c19b651a]">{icon}</div>
       <div className="text-xl font-bold text-[#5e3822]">{value}</div>
       <div className="mt-0.5 text-[11px] text-[#7d7368]">{label}</div>
     </div>
