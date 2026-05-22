@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fbf7f1;
+  --foreground: #1d1712;
+  --card: #fffaf4;
+  --card-foreground: #1d1712;
+  --muted: #f3ebe1;
+  --muted-foreground: #7d7368;
+  --border: #e8ded1;
+  --accent: #efe3d4;
+  --primary: #cf7f2f;
+  --primary-foreground: #fffaf4;
+  --success: #2f8f5b;
+  --brown: #5e3822;
+  --ice: #d8f0ff;
+  --crowd-low: #2f8f5b;
+  --crowd-mid: #cf7f2f;
+  --crowd-high: #c24234;
+  --shadow-soft: 0 14px 40px rgba(62, 37, 18, 0.08);
+  --shadow-card: 0 10px 24px rgba(62, 37, 18, 0.12);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-success: var(--success);
+  --color-brown: var(--brown);
+  --color-ice: var(--ice);
+  --color-crowd-low: var(--crowd-low);
+  --color-crowd-mid: var(--crowd-mid);
+  --color-crowd-high: var(--crowd-high);
+  --shadow-soft: var(--shadow-soft);
+  --shadow-card: var(--shadow-card);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #14110f;
+    --foreground: #f7efe7;
+    --card: #1b1714;
+    --card-foreground: #f7efe7;
+    --muted: #241f1c;
+    --muted-foreground: #b5a89d;
+    --border: #2e2722;
+    --accent: #2a221d;
+    --primary: #e0923b;
+    --primary-foreground: #1b1714;
+    --success: #52ab74;
+    --brown: #f0d6bf;
+    --ice: #264456;
+    --crowd-low: #52ab74;
+    --crowd-mid: #e0923b;
+    --crowd-high: #e46858;
+    --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.28);
+    --shadow-card: 0 10px 24px rgba(0, 0, 0, 0.3);
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
