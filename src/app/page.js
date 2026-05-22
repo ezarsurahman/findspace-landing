@@ -5,23 +5,28 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
   Bell,
+  BadgeCheck,
   Bookmark,
   Briefcase,
+  Check,
   CheckCircle2,
   ChevronRight,
   Clock,
   GraduationCap,
+  GitCompareArrows,
   MapPin,
   Repeat,
+  Plug,
   Search,
   Star,
   TrendingUp,
   Users,
   VolumeX,
+  Volume2,
   Wifi,
   Zap,
 } from "lucide-react";
-import { CAFES } from "@/lib/cafes";
+import { CAFES, getStatus } from "@/lib/cafes";
 
 const SHADOW_SOFT =
   "shadow-[0_4px_16px_-4px_rgba(62,37,18,0.08),0_2px_6px_-2px_rgba(62,37,18,0.06)]";
@@ -191,46 +196,36 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-8 grid gap-4 lg:mt-10 lg:grid-cols-12 lg:auto-rows-[minmax(180px,auto)]">
-            <FeatureShowcaseCard
-              className="lg:col-span-7 lg:row-span-2"
+          <div className="mt-8 grid gap-4 lg:mt-10 lg:grid-cols-12 lg:auto-rows-auto lg:items-start">
+            <FeatureCard
+              className="lg:col-span-6"
               title="Real-Time Crowd Level"
               desc="See how crowded a café is before you leave home."
-              accent="Crowd"
               icon={<Users className="size-5 text-[#c19b65]" />}
-              preview={<CrowdPreview />}
             />
-            <FeatureShowcaseCard
-              className="lg:col-span-5"
+            <FeatureCard
+              className="lg:col-span-6"
               title="Smart Café Discovery"
               desc="Search cafés with location-aware discovery and workspace filters."
-              accent="Discovery"
               icon={<Search className="size-5 text-[#c19b65]" />}
-              preview={<SearchPreview />}
             />
-            <FeatureShowcaseCard
+            <FeatureCard
               className="lg:col-span-4"
               title="Productivity Labels"
               desc="At a glance, understand WiFi, sockets, and quiet-zone quality."
-              accent="Labels"
               icon={<CheckCircle2 className="size-5 text-[#c19b65]" />}
-              preview={<LabelsPreview />}
             />
-            <FeatureShowcaseCard
+            <FeatureCard
               className="lg:col-span-4"
               title="Saved Collection"
               desc="Keep your favorite workspace cafés organized and ready."
-              accent="Saved"
               icon={<Bookmark className="size-5 text-[#c19b65]" />}
-              preview={<SavedPreview />}
             />
-            <FeatureShowcaseCard
+            <FeatureCard
               className="lg:col-span-4"
               title="Live Notifications"
               desc="Get alerted the moment a saved café becomes available again."
-              accent="Alerts"
               icon={<Bell className="size-5 text-[#c19b65]" />}
-              preview={<NotificationPreview />}
             />
           </div>
         </div>
@@ -302,7 +297,7 @@ export default function Home() {
       <footer className="border-t border-[#e8ded1] px-5 py-8 pb-24 lg:px-8 lg:pb-10">
         <div className="mx-auto max-w-98.25 text-center">
           <div className="flex items-center justify-center gap-2">
-            <div className="flex size-7 items-center justify-center rounded-md bg-[#c19b65] text-[#fffaf4]">
+            <div className="flex size-7 items-center justify-center rounded-full bg-[#c19b65] text-[#fffaf4]">
               <Search className="size-3.5" />
             </div>
             <span className="text-sm font-bold text-[#5e3822]">FindSpace</span>
@@ -341,6 +336,15 @@ export default function Home() {
 
 function PhoneMockup() {
   const cafes = CAFES.slice(0, 2);
+  const [compare, setCompare] = useState([]);
+
+  const toggleCompare = (id) => {
+    setCompare((current) =>
+      current.includes(id)
+        ? current.filter((item) => item !== id)
+        : [...current, id],
+    );
+  };
 
   return (
     <div className="relative w-65 shrink-0 lg:w-96 lg:scale-[1.18] lg:-translate-y-2 lg:origin-center">
@@ -363,42 +367,108 @@ function PhoneMockup() {
 
           <div className="space-y-2.5">
             {cafes.map((cafe) => (
-              <div key={cafe.id} className={`overflow-hidden rounded-xl border border-[#e8ded1] bg-[#fffaf4] ${SHADOW_SOFT}`}>
-                <div className="relative h-20 w-full overflow-hidden">
-                  <Image src={cafe.image} alt={cafe.name} fill sizes="260px" className="object-cover" />
-                  <div className={`absolute right-2 top-2 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[8px] font-semibold backdrop-blur-md ${CROWD_STYLES[cafe.crowd]}`}>
-                    <span className={`size-1 rounded-full ${CROWD_DOT_STYLES[cafe.crowd]}`} />
-                    {cafe.crowd}
-                  </div>
-                </div>
-
-                <div className="space-y-1 p-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-semibold text-[#1d1712]">{cafe.name}</span>
-                    <CheckCircle2 className="size-3 text-[#c19b65]" />
-                  </div>
-                  <div className="flex items-center gap-2 text-[9px] text-[#7d7368]">
-                    <span className="inline-flex items-center gap-0.5">
-                      <Wifi className="size-2.5" /> {cafe.wifiMbps} Mbps
-                    </span>
-                    <span className="inline-flex items-center gap-0.5">
-                      <Zap className="size-2.5" /> Plugs
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <CafeCardPreview
+                key={cafe.id}
+                cafe={cafe}
+                compare={compare}
+                onToggleCompare={toggleCompare}
+                compact
+              />
             ))}
           </div>
         </div>
       </div>
 
-      <div className={`absolute -right-3 top-16 rounded-xl border border-[#e8ded1] bg-[#fffaf4] px-2.5 py-2 ${SHADOW_CARD}`}>
-        <div className="flex items-center gap-1.5">
-          <Clock className="size-3 text-[#2f8f5b]" />
-          <span className="text-[9px] font-semibold text-[#1d1712]">Updated 2m ago</span>
+    </div>
+  );
+}
+
+function CafeCardPreview({ cafe, compare, onToggleCompare, compact = false }) {
+  const { isOpen, closingSoon, minsToClose } = getStatus(cafe);
+  const inCompare = compare.includes(cafe.id);
+
+  return (
+    <div className={`overflow-hidden rounded-2xl border border-[#e8ded1] bg-[#fffaf4] ${SHADOW_SOFT}`}>
+      <div className={`relative w-full overflow-hidden ${compact ? "h-24" : "h-36"}`}>
+        <Image src={cafe.image} alt={cafe.name} fill sizes="260px" className="object-cover" />
+        <div className={`absolute right-2 top-2 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[8px] font-semibold backdrop-blur-md ${CROWD_STYLES[cafe.crowd]}`}>
+          <span className={`size-1 rounded-full ${CROWD_DOT_STYLES[cafe.crowd]}`} />
+          {cafe.crowd}
         </div>
+        <span className={`absolute left-2 top-2 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[8px] font-semibold ${isOpen ? "bg-[#2f8f5b] text-white" : "bg-[#f14e4c] text-white"}`}>
+          <span className="size-1 rounded-full bg-white/90" />
+          {isOpen ? "Open" : "Closed"}
+        </span>
+      </div>
+
+      <div className={compact ? "space-y-1.5 p-2.5" : "space-y-2 p-4"}>
+        <div className="flex items-start justify-between gap-2">
+          <div>
+            <h3 className={`${compact ? "text-[11px]" : "text-base"} font-semibold leading-tight text-[#1d1712]`}>
+              {cafe.name}
+            </h3>
+            <div className="mt-0.5 flex items-center gap-1 text-[9px] text-[#7d7368]">
+              <MapPin className="size-2.5" />
+              <span>{cafe.area}</span>
+            </div>
+          </div>
+          <BadgeCheck className="size-3.5 shrink-0 text-[#c19b65]" />
+        </div>
+
+        <div className="flex items-center gap-2 text-[9px] text-[#7d7368]">
+          <span className="inline-flex items-center gap-0.5">
+            <Clock className="size-2.5" /> {cafe.hours}
+          </span>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+          {cafe.facilities.wifi && (
+            <CafeTag icon={<Wifi className="size-3" />}>{cafe.wifiMbps} Mbps</CafeTag>
+          )}
+          {cafe.facilities.plugs && (
+            <CafeTag icon={<Plug className="size-3" />}>Plugs</CafeTag>
+          )}
+          {cafe.facilities.quiet && (
+            <CafeTag icon={<Volume2 className="size-3" />}>Quiet</CafeTag>
+          )}
+        </div>
+
+        <div className={`flex items-center justify-between gap-2 ${compact ? "pt-0.5" : "pt-1"} text-[10px] font-medium`}>
+          <span className="text-[#7d7368]">Updated {cafe.crowdUpdatedMinsAgo} mins ago</span>
+          {closingSoon && (
+            <span className="rounded-full bg-[#d9a62f1f] px-2 py-0.5 font-semibold text-[#b58113]">
+              ⚠ Closing in {minsToClose}m
+            </span>
+          )}
+        </div>
+
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onToggleCompare(cafe.id);
+          }}
+          className={`mt-1 flex w-full items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[10px] font-semibold transition ${
+            inCompare
+              ? "border-[#c19b65] bg-[#c19b65] text-[#fffaf4]"
+              : "border-[#e8ded1] bg-[#f8f3ea] text-[#1d1712] hover:bg-[#efe3d4]"
+          }`}
+        >
+          {inCompare ? <Check className="size-3" /> : <GitCompareArrows className="size-3" />}
+          {inCompare ? "Added to compare" : "Compare"}
+        </button>
       </div>
     </div>
+  );
+}
+
+function CafeTag({ icon, children }) {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full bg-[#efe3d4] px-2 py-0.5 text-[10px] font-medium text-[#5e3822]">
+      {icon}
+      {children}
+    </span>
   );
 }
 
@@ -422,205 +492,20 @@ function StatCard({ icon, value, label }) {
   );
 }
 
-function FeatureShowcaseCard({ className = "", title, desc, accent, icon, preview }) {
+function FeatureCard({ className = "", title, desc, icon }) {
   return (
     <article
-      className={`group overflow-hidden rounded-3xl border border-[#e8ded1] bg-[#fffaf4] p-5 transition duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:${SHADOW_CARD} ${SHADOW_SOFT} ${className}`}
+      className={`group h-full overflow-hidden rounded-3xl border border-[#e8ded1] bg-[#fffaf4] p-5 transition duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:${SHADOW_CARD} ${SHADOW_SOFT} ${className}`}
     >
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-start gap-3">
-          <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[#c19b651a]">{icon}</div>
-          <div>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#c19b65]">{accent}</span>
-            <h3 className="mt-1 text-lg font-semibold text-[#1d1712] lg:text-xl">{title}</h3>
-          </div>
+      <div className="flex items-start gap-3">
+        <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[#c19b651a]">{icon}</div>
+        <div>
+          <h3 className="text-lg font-semibold text-[#1d1712] lg:text-xl">{title}</h3>
+          <p className="mt-1 max-w-md text-sm leading-relaxed text-[#7d7368] lg:text-[15px]">
+            {desc}
+          </p>
         </div>
-        <span className="rounded-full border border-[#c19b6533] bg-[#c19b6514] px-2.5 py-1 text-[10px] font-semibold text-[#c19b65]">
-          Preview
-        </span>
-      </div>
-
-      <p className="mt-3 max-w-md text-sm leading-relaxed text-[#7d7368] lg:text-[15px]">
-        {desc}
-      </p>
-
-      <div className="mt-5 rounded-2xl border border-[#e8ded1] bg-[#f8f3ea] p-3 sm:p-4">
-        {preview}
       </div>
     </article>
-  );
-}
-
-function CrowdPreview() {
-  return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-3">
-        <div>
-          <div className="text-xs font-semibold text-[#5e3822]">Kopi Sudut</div>
-          <div className="mt-1 text-[10px] text-[#7d7368]">Menteng, Jakpus</div>
-        </div>
-        <span className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold ${CROWD_STYLES.Quiet}`}>
-          Quiet
-        </span>
-      </div>
-
-      <div className="grid grid-cols-3 gap-2">
-        {[
-          { label: "Quiet", active: true },
-          { label: "Moderate" },
-          { label: "Busy" },
-        ].map((item) => (
-          <div
-            key={item.label}
-            className={`rounded-2xl border p-3 text-center transition ${item.active ? "border-[#2f8f5b33] bg-[#2f8f5b12]" : "border-[#e8ded1] bg-[#fffaf4]"}`}
-          >
-            <div className={`mx-auto size-2 rounded-full ${CROWD_DOT_STYLES[item.label]}`} />
-            <div className="mt-2 text-[10px] font-semibold text-[#1d1712]">{item.label}</div>
-          </div>
-        ))}
-      </div>
-
-      <div className="space-y-2 rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-3">
-        <div className="flex items-center justify-between text-[10px] text-[#7d7368]">
-          <span>Live occupancy</span>
-          <span>24% full</span>
-        </div>
-        <div className="h-2 rounded-full bg-[#efe3d4]">
-          <div className="h-2 w-1/4 rounded-full bg-[#2f8f5b]" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SearchPreview() {
-  return (
-    <div className="space-y-3">
-      <div className="rounded-2xl border border-[#e8ded1] bg-[#fffaf4] px-3 py-2.5">
-        <div className="flex items-center gap-2 text-[#7d7368]">
-          <Search className="size-3.5" />
-          <span className="text-[10px]">Search cafés near Menteng...</span>
-        </div>
-      </div>
-
-      <div className="flex gap-2 overflow-hidden">
-        {[
-          "Quiet",
-          "WiFi 50+ Mbps",
-          "Sockets",
-        ].map((filter, index) => (
-          <span
-            key={filter}
-            className={`whitespace-nowrap rounded-full px-3 py-1 text-[10px] font-semibold ${index === 0 ? "bg-[#c19b651a] text-[#c19b65]" : "bg-[#fffaf4] text-[#7d7368]"}`}
-          >
-            {filter}
-          </span>
-        ))}
-      </div>
-
-      <div className="space-y-2">
-        {[
-          { name: "Kopi Sudut", meta: "Quiet • 75 Mbps" },
-          { name: "Ruang Tenang", meta: "Moderate • 50 Mbps" },
-        ].map((cafe) => (
-          <div key={cafe.name} className="flex items-center justify-between rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-3">
-            <div>
-              <div className="text-xs font-semibold text-[#1d1712]">{cafe.name}</div>
-              <div className="mt-1 text-[10px] text-[#7d7368]">{cafe.meta}</div>
-            </div>
-            <ChevronRight className="size-4 text-[#c19b65]" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function LabelsPreview() {
-  return (
-    <div className="space-y-3">
-      <div className="grid grid-cols-3 gap-2">
-        {[
-          { label: "WiFi", value: "Stable", tone: "text-[#2f8f5b]" },
-          { label: "Sockets", value: "Plenty", tone: "text-[#c19b65]" },
-          { label: "Noise", value: "Low", tone: "text-[#2f8f5b]" },
-        ].map((item) => (
-          <div key={item.label} className="rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-3 text-center">
-            <div className="text-[10px] text-[#7d7368]">{item.label}</div>
-            <div className={`mt-1 text-xs font-semibold ${item.tone}`}>{item.value}</div>
-          </div>
-        ))}
-      </div>
-
-      <div className="rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-3">
-        <div className="flex items-center justify-between text-[10px] text-[#7d7368]">
-          <span>Productivity score</span>
-          <span>92/100</span>
-        </div>
-        <div className="mt-2 h-2 rounded-full bg-[#efe3d4]">
-          <div className="h-2 w-[92%] rounded-full bg-[#c19b65]" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SavedPreview() {
-  return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-2 rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-3">
-        <div className="flex size-9 items-center justify-center rounded-xl bg-[#c19b651a]">
-          <Bookmark className="size-4 text-[#c19b65]" />
-        </div>
-        <div>
-          <div className="text-xs font-semibold text-[#1d1712]">Saved Collection</div>
-          <div className="mt-1 text-[10px] text-[#7d7368]">3 cafés ready for work</div>
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        {[
-          { name: "Kopi Sudut", note: "Quiet • Favorite" },
-          { name: "Deep Work House", note: "Near your route" },
-        ].map((item) => (
-          <div key={item.name} className="flex items-center justify-between rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-3">
-            <div>
-              <div className="text-xs font-semibold text-[#1d1712]">{item.name}</div>
-              <div className="mt-1 text-[10px] text-[#7d7368]">{item.note}</div>
-            </div>
-            <div className="size-2 rounded-full bg-[#c19b65]" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function NotificationPreview() {
-  return (
-    <div className="relative space-y-3">
-      <div className="rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-3">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-xs font-semibold text-[#1d1712]">Live Notifications</div>
-            <div className="mt-1 text-[10px] text-[#7d7368]">Alert when seats open up</div>
-          </div>
-          <div className="flex size-9 items-center justify-center rounded-xl bg-[#2f8f5b12] text-[#2f8f5b]">
-            <Bell className="size-4" />
-          </div>
-        </div>
-      </div>
-
-      <div className="absolute right-2 top-10 w-[85%] rounded-2xl border border-[#e8ded1] bg-[#fffaf4] p-3 shadow-[0_18px_30px_-18px_rgba(62,37,18,0.25)]">
-        <div className="flex items-start gap-3">
-          <div className="mt-0.5 size-2 rounded-full bg-[#2f8f5b]" />
-          <div className="flex-1">
-            <div className="text-xs font-semibold text-[#1d1712]">Kopi Sudut is quieter now</div>
-            <div className="mt-1 text-[10px] leading-relaxed text-[#7d7368]">Crowd dropped to Quiet. Tap to open the listing.</div>
-          </div>
-        </div>
-      </div>
-      <div className="h-14" />
-    </div>
   );
 }
